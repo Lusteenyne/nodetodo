@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 250px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>TODO</h1>
+    <form action="/todo/submit" method="post">
+        <input type="text" name="title" placeholder="Add a new title" required>
+        <input type="text" name="content" placeholder="Add new content" required>
+        <button type="submit">Add Todo</button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% todoarray.forEach((todo) => { %>
+                <tr>
+                    <td><%= todo.title %></td>
+                    <td><%= todo.content %></td>
+                    <td class="action-buttons">
+                        <form action="/todo/delete/<%= todo._id %>" method="post" style="display: inline;">
+                            <button class="delete-btn">Delete</button>
+                        </form>
+                        <form action="/todo/edit/<%= todo._id%>" method="get" style="display: inline;">
+                            <button>Edit</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
